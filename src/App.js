@@ -21,8 +21,8 @@ export default class App extends React.Component{
   }
 
   async storeExampleNFT() {
-    const image = await this.getExampleImage();
-    // const image = new Blob();
+    //const image = await this.getExampleImage();
+    const image = new Blob();
     const nft = {
       image, // use image Blob as `image` field
       name: "Storing the World's Most Valuable Virtual Assets with NFT.Storage",
