@@ -13,9 +13,9 @@ class NFTStorageUtil {
       mode: "no-cors",
       method: "GET",
     });
-    if (!r.ok) {
-      throw new Error(`error fetching image: [${r.statusCode}]: ${r.status}`);
-    }
+    // if (!r.ok) {
+    //   throw new Error(`error fetching image: [${r.statusCode}]: ${r.status}`);
+    // }
     return r.blob();
   }
 
@@ -27,15 +27,14 @@ class NFTStorageUtil {
       name: input.orgName,
       description: input.desc,
       properties: {
-        type: "blog-post",
+        type: "POSP",
         origins: {
-          http: "https://nft.storage/blog/post/2021-11-30-hello-world-nft-storage/",
-          ipfs: "ipfs://bafybeieh4gpvatp32iqaacs6xqxqitla4drrkyyzq6dshqqsilkk3fqmti/blog/post/2021-11-30-hello-world-nft-storage/",
+          recepientAddress: input.recp,
+          linkArt: input.art,
         },
-        authors: [{ name: "David Choi" }],
+        authors: [{ recepientMail: input.email }],
         content: {
-          "text/markdown":
-            "The last year has witnessed the explosion of NFTs onto the world’s mainstage. From fine art to collectibles to music and media, NFTs are quickly demonstrating just how quickly grassroots Web3 communities can grow, and perhaps how much closer we are to mass adoption than we may have previously thought. <... remaining content omitted ...>",
+          "Stream of Work": input.work,
         },
       },
     };

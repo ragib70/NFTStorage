@@ -76,17 +76,15 @@ export default class Home extends React.Component {
             <h1>
               When
               {/* <!-- Green highlight effect --> */}
-              <span className="highlight">minting</span>
+              <span className="highlight"> minting </span>
               meets
               <br />
               <span className="highlight">minimalist</span>
             </h1>
             <h4>A simpler minting experience for a simpler life.</h4>
-            <button className="btn--text btn--scroll-to">
-              Learn more &DownArrow;
-            </button>
+            <button className="btn--text btn--scroll-to">Learn more</button>
             <img
-              src="/img/hero.png"
+              src="/img/cryptoPunk1.jpg"
               className="header__img"
               alt="Minimalist bank items"
             />
@@ -391,9 +389,9 @@ export default class Home extends React.Component {
             <a
               className="footer__link twitter-link"
               target="_blank"
-              href="https://twitter.com/jonasschmedtman"
+              href="https://twitter.com/@MdRagibHussai15"
             >
-              Jonas Schmedtmann
+              Ragib Hussain
             </a>
             . Use for learning or your portfolio. Don't use to teach. Don't
             claim as your own product.
