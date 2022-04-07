@@ -1,6 +1,7 @@
 import React from "react";
 import "./home.css";
 import nftStorageUtil from "./nft-storage";
+import loginCall from "./login-call";
 
 export default class Home extends React.Component {
   //   orgName = "";
@@ -13,7 +14,10 @@ export default class Home extends React.Component {
   constructor(props) {
     super();
 
+    const user = loginCall.getCurrentUser();
+
     this.state = {
+      ethAdd: user ? user.get("ethAddress") : "Connect Wallet",
       orgName: "",
       desc: "",
       work: "",
@@ -30,7 +34,7 @@ export default class Home extends React.Component {
         <header className="header">
           <nav className="nav">
             <img
-              src="../../public/img/collect.webp"
+              src="/img/collect.webp"
               alt="Bankist logo"
               className="nav__logo"
               id="logo"
@@ -82,7 +86,7 @@ export default class Home extends React.Component {
               Learn more &DownArrow;
             </button>
             <img
-              src="../../public/img/hero.png"
+              src="/img/hero.png"
               className="header__img"
               alt="Minimalist bank items"
             />
@@ -99,15 +103,15 @@ export default class Home extends React.Component {
 
           <div className="features">
             <img
-              src="../../public/img/digital-lazy.jpg"
-              data-src="../../public/img/digital.jpg"
+              src="/img/digital-lazy.jpg"
+              data-src="/img/digital.jpg"
               alt="Computer"
               className="features__img lazy-img"
             />
             <div className="features__feature">
               <div className="features__icon">
                 <svg>
-                  <use href="../../public/img/icons.svg#icon-monitor"></use>
+                  <use href="/img/icons.svg#icon-monitor"></use>
                 </svg>
               </div>
               <h5 className="features__header">100% digital bank</h5>
@@ -121,7 +125,7 @@ export default class Home extends React.Component {
             <div className="features__feature">
               <div className="features__icon">
                 <svg>
-                  <use href="../../public/img/icons.svg#icon-trending-up"></use>
+                  <use href="/img/icons.svg#icon-trending-up"></use>
                 </svg>
               </div>
               <h5 className="features__header">Watch your money grow</h5>
@@ -132,22 +136,22 @@ export default class Home extends React.Component {
               </p>
             </div>
             <img
-              src="../../public/img/grow-lazy.jpg"
-              data-src="../../public/img/grow.jpg"
+              src="/img/grow-lazy.jpg"
+              data-src="/img/grow.jpg"
               alt="Plant"
               className="features__img lazy-img"
             />
 
             <img
-              src="../../public/img/card-lazy.jpg"
-              data-src="../../public/img/card.jpg"
+              src="/img/card-lazy.jpg"
+              data-src="/img/card.jpg"
               alt="Credit card"
               className="features__img lazy-img"
             />
             <div className="features__feature">
               <div className="features__icon">
                 <svg>
-                  <use href="../../public/img/icons.svg#icon-credit-card"></use>
+                  <use href="/img/icons.svg#icon-credit-card"></use>
                 </svg>
               </div>
               <h5 className="features__header">Free debit card included</h5>
@@ -192,7 +196,7 @@ export default class Home extends React.Component {
             <div className="operations__content operations__content--1 operations__content--active">
               <div className="operations__icon operations__icon--1">
                 <svg>
-                  <use href="../../public/img/icons.svg#icon-upload"></use>
+                  <use href="/img/icons.svg#icon-upload"></use>
                 </svg>
               </div>
               <h5 className="operations__header">
@@ -209,7 +213,7 @@ export default class Home extends React.Component {
             <div className="operations__content operations__content--2">
               <div className="operations__icon operations__icon--2">
                 <svg>
-                  <use href="../../public/img/icons.svg#icon-home"></use>
+                  <use href="/img/icons.svg#icon-home"></use>
                 </svg>
               </div>
               <h5 className="operations__header">
@@ -225,7 +229,7 @@ export default class Home extends React.Component {
             <div className="operations__content operations__content--3">
               <div className="operations__icon operations__icon--3">
                 <svg>
-                  <use href="../../public/img/icons.svg#icon-user-x"></use>
+                  <use href="/img/icons.svg#icon-user-x"></use>
                 </svg>
               </div>
               <h5 className="operations__header">
@@ -266,7 +270,7 @@ export default class Home extends React.Component {
                 </blockquote>
                 <address className="testimonial__author">
                   <img
-                    src="../../public/img/user-1.jpg"
+                    src="/img/user-1.jpg"
                     alt=""
                     className="testimonial__photo"
                   />
@@ -290,7 +294,7 @@ export default class Home extends React.Component {
                 </blockquote>
                 <address className="testimonial__author">
                   <img
-                    src="../../public/img/user-2.jpg"
+                    src="/img/user-2.jpg"
                     alt=""
                     className="testimonial__photo"
                   />
@@ -315,7 +319,7 @@ export default class Home extends React.Component {
                 </blockquote>
                 <address className="testimonial__author">
                   <img
-                    src="../../public/img/user-3.jpg"
+                    src="/img/user-3.jpg"
                     alt=""
                     className="testimonial__photo"
                   />
@@ -381,11 +385,7 @@ export default class Home extends React.Component {
               </a>
             </li>
           </ul>
-          <img
-            src="../../public/img/icon.png"
-            alt="Logo"
-            className="footer__logo"
-          />
+          <img src="/img/icon.png" alt="Logo" className="footer__logo" />
           <p className="footer__copyright">
             &copy; Copyright by
             <a
@@ -414,8 +414,16 @@ export default class Home extends React.Component {
             in just <span className="highlight">5 minutes</span>
           </h2>
           <form className="modal__form">
-            <button className="btn" id="btn-login">
-              Connect Wallet &rarr;
+            <button
+              className="btn"
+              id="btn-login"
+              onClick={() => {
+                loginCall.login((ethAdd) => {
+                  this.setState({ ...this.state, ethAdd: ethAdd });
+                });
+              }}
+            >
+              {this.state.ethAdd} &rarr;
             </button>
             <label>Organisation Name</label>
             <input
@@ -473,6 +481,16 @@ export default class Home extends React.Component {
               }}
             >
               Mint &rarr;
+            </button>
+            <button
+              className="btn"
+              onClick={() => {
+                loginCall.logOut(() => {
+                  this.setState({ ...this.state, ethAdd: "Connect Wallet" });
+                });
+              }}
+            >
+              LogOut &rarr;
             </button>
           </form>
         </div>

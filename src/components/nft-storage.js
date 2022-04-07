@@ -8,9 +8,11 @@ class NFTStorageUtil {
   // In most cases, you'll want to use files provided by a user instead.
   async getExampleImage() {
     const imageOriginUrl =
-      //"https://user-images.githubusercontent.com/87873179/144324736-3f09a98e-f5aa-4199-a874-13583bf31951.jpg";
-      "https://i.stack.imgur.com/Y7bVp.png";
-    const r = await fetch(imageOriginUrl, { mode: "no-cors", method: "GET" });
+      "https://user-images.githubusercontent.com/87873179/144324736-3f09a98e-f5aa-4199-a874-13583bf31951.jpg";
+    const r = await fetch(imageOriginUrl, {
+      mode: "no-cors",
+      method: "GET",
+    });
     if (!r.ok) {
       throw new Error(`error fetching image: [${r.statusCode}]: ${r.status}`);
     }
@@ -18,8 +20,8 @@ class NFTStorageUtil {
   }
 
   async storeExampleNFT(input) {
-    //const image = await this.getExampleImage();
-    const image = new Blob();
+    const image = await this.getExampleImage();
+    //const image = new Blob();
     const nft = {
       image, // use image Blob as `image` field
       name: input.orgName,
