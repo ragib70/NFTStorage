@@ -34,39 +34,52 @@ class LoginCall {
     // document.querySelector("#btn-login").textContent = "Connect Wallet";
   }
 
-  async deposit() {
+  async mintNFT(amountNFT, metadata) {
     let options = {
-      contractAddress: "0xA29BC35Dca0755DCE6b370037E49Cf835037cfc1",
-      functionName: "confirm_payment",
+      contractAddress: "0xfb6f3E88541E88c34b45336A6703D378AcDC9d5b",
+      functionName: "mint",
       abi: [
         {
-          inputs: [],
-          name: "confirm_payment",
-          outputs: [],
-          stateMutability: "payable",
-          type: "function",
-        },
-      ],
-      msgValue: Moralis.Units.ETH(0.0001),
-    };
-    await Moralis.executeFunction(options);
-  }
-
-  async retreive() {
-    let options = {
-      contractAddress: "0x4f890bA557CabB868dd1Cd6a77472B0915c5597C",
-      functionName: "ReturnPayment",
-      abi: [
-        {
-          inputs: [],
-          name: "ReturnPayment",
-          outputs: [],
+          inputs: [
+            { internalType: "uint256", name: "amount", type: "uint256" },
+            { internalType: "string", name: "_metadata", type: "string" },
+          ],
+          name: "mint",
+          outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
           stateMutability: "nonpayable",
           type: "function",
         },
       ],
+      params: {
+        amount: amountNFT,
+        _metadata: metadata,
+      },
+      msgValue: 0,
     };
     await Moralis.executeFunction(options);
+  }
+
+  async getURI(token_id) {
+    let options = {
+      contractAddress: "0xfb6f3E88541E88c34b45336A6703D378AcDC9d5b",
+      functionName: "getURI",
+      abi: [
+        {
+          inputs: [
+            { internalType: "uint256", name: "tokenId", type: "uint256" },
+          ],
+          name: "getURI",
+          outputs: [{ internalType: "string", name: "", type: "string" }],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      params: {
+        tokenId: token_id,
+      },
+    };
+    const metadataValue = await Moralis.executeFunction(options);
+    return metadataValue;
   }
 
   async confirm() {

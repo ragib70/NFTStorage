@@ -6,7 +6,7 @@ import loginCall from "./login-call";
 export default class Home extends React.Component {
   //   orgName = "";
   //   desc = "";
-  //   work = "";
+  //   amount = "";
   //   email = "";
   //   recp = "";
   //   art = "";
@@ -18,13 +18,17 @@ export default class Home extends React.Component {
 
     this.state = {
       ethAdd: user ? user.get("ethAddress") : "Connect Wallet",
+      uri: "",
+      isURIAvail: false,
       orgName: "",
       desc: "",
-      work: "",
+      amount: "",
       email: "",
       recp: "",
       art: "",
+      tokenId: "",
       modalVisibility: "hidden",
+      modal2Visibility: "hidden",
     };
   }
 
@@ -43,7 +47,13 @@ export default class Home extends React.Component {
             />
             <ul className="nav__links">
               <li className="nav__item">
-                <a className="nav__link" href="#section--1">
+                <a
+                  className="nav__link"
+                  href="#section--1"
+                  onClick={() => {
+                    this.setState({ ...this.state, modal2Visibility: "" });
+                  }}
+                >
                   Features
                 </a>
               </li>
@@ -95,7 +105,7 @@ export default class Home extends React.Component {
           <div className="section__title">
             <h2 className="section__description">Features</h2>
             <h3 className="section__header">
-              Everything you need in a modern bank and more.
+              Everything you need in POSP and more.
             </h3>
           </div>
 
@@ -112,11 +122,10 @@ export default class Home extends React.Component {
                   <use href="/img/icons.svg#icon-monitor"></use>
                 </svg>
               </div>
-              <h5 className="features__header">100% digital bank</h5>
+              <h5 className="features__header">100% digital asset</h5>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
-                alias sint quos? Accusantium a fugiat porro reiciendis saepe
-                quibusdam debitis ducimus.
+                Unmutable digital asset with data stored on-chain, No
+                modification in the dispatched NFT's.
               </p>
             </div>
 
@@ -439,12 +448,12 @@ export default class Home extends React.Component {
                 this.setState({ ...this.state, recp: e.target.value });
               }}
             />
-            <label>Stream of work</label>
+            <label>Amount (NFT)</label>
             <input
               type="text"
-              value={this.state.work}
+              value={this.state.amount}
               onChange={(e) => {
-                this.setState({ ...this.state, work: e.target.value });
+                this.setState({ ...this.state, amount: e.target.value });
               }}
             />
             <label>Description</label>
@@ -492,6 +501,61 @@ export default class Home extends React.Component {
             </button>
           </form>
         </div>
+
+        <div className={`modal ${this.state.modal2Visibility}`} id="modal--1">
+          <button
+            className="btn--close-modal"
+            onClick={() => {
+              this.setState({ ...this.state, modal2Visibility: "hidden" });
+            }}
+          >
+            &times;
+          </button>
+          <h2 className="modal__header">
+            Fill and get your info <br />
+            in just <span className="highlight">5 minutes</span>
+          </h2>
+          <form className="modal__form">
+            <label>Token Id</label>
+            <input
+              type="text"
+              value={this.state.tokenId}
+              onChange={(e) => {
+                this.setState({ ...this.state, tokenId: e.target.value });
+              }}
+            />
+            <button
+              className="btn"
+              onClick={async () => {
+                //this.setState.uri = await loginCall.getURI(this.state.tokenId);
+                this.setState({
+                  ...this.state,
+                  uri: await loginCall.getURI(this.state.tokenId),
+                  isURIAvail: true,
+                });
+              }}
+            >
+              Get URI &rarr;
+            </button>
+            {this.state.isURIAvail ? (
+              <button hidden={this.state.isURIAvail} className="btn">
+                {this.state.uri}|
+                <button
+                  className="btn"
+                  style={{ backgroundColor: "white" }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(this.state.uri);
+                  }}
+                >
+                  Copy
+                </button>
+              </button>
+            ) : (
+              ""
+            )}
+          </form>
+        </div>
+
         <div className="overlay hidden"></div>
       </div>
     );

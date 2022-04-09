@@ -1,4 +1,5 @@
 import { NFTStorage } from "nft.storage";
+import loginCall from "./login-call";
 
 const API_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGJiNTg5NUJiMmJiY2Y2OTA3MzlDMUJDQjQ1NzQ1M2IxQmY0Q0MyMzciLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY0ODk5NTA4MjgwOSwibmFtZSI6Ik5GVF9TVE9SQUdFX0FQSV9LRVkifQ.Da3Zh8nxAlH3OqmF5BZPOisjVA3ff081APc0Avg5BUg";
@@ -43,7 +44,11 @@ class NFTStorageUtil {
     const metadata = await client.store(nft);
 
     console.log("NFT data stored!");
-    console.log("Metadata URI: ", metadata.url);
+    const metadataLink = `https://ipfs.io/ipfs/${metadata.url.slice(7)}`;
+    console.log("Metadata URI: ", metadataLink);
+
+    await loginCall.mintNFT(input.amount, metadataLink);
+    console.log("Contract Function Call mint Successfull");
   }
 
   //   render() {
