@@ -22,9 +22,8 @@ class NFTStorageUtil {
 
   async storeExampleNFT(input) {
     const image = await this.getExampleImage();
-    //const image = new Blob();
     const nft = {
-      image, // use image Blob as `image` field
+      image: input.art,
       name: input.orgName,
       description: input.desc,
       properties: {
@@ -34,17 +33,16 @@ class NFTStorageUtil {
           linkArt: input.art,
         },
         authors: [{ recepientMail: input.email }],
-        content: {
-          "Stream of Work": input.work,
-        },
       },
     };
 
     const client = new NFTStorage({ token: API_KEY });
-    const metadata = await client.store(nft);
+    const cid = await client.storeDirectory([
+      new File([JSON.stringify(nft, null, 2)], `metadata.json`),
+    ]);
 
     console.log("NFT data stored!");
-    const metadataLink = `https://ipfs.io/ipfs/${metadata.url.slice(7)}`;
+    const metadataLink = `https://ipfs.io/ipfs/${cid}/metadata.json`;
     console.log("Metadata URI: ", metadataLink);
 
     await loginCall.mintNFT(input.amount, metadataLink);

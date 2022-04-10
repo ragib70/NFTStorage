@@ -36,7 +36,7 @@ class LoginCall {
 
   async mintNFT(amountNFT, metadata) {
     let options = {
-      contractAddress: "0xfb6f3E88541E88c34b45336A6703D378AcDC9d5b",
+      contractAddress: "0x20c7237628b46Be6a9CC4749F42BADB2a25C4251",
       functionName: "mint",
       abi: [
         {
@@ -61,14 +61,14 @@ class LoginCall {
 
   async getURI(token_id) {
     let options = {
-      contractAddress: "0xfb6f3E88541E88c34b45336A6703D378AcDC9d5b",
-      functionName: "getURI",
+      contractAddress: "0x20c7237628b46Be6a9CC4749F42BADB2a25C4251",
+      functionName: "uri",
       abi: [
         {
           inputs: [
             { internalType: "uint256", name: "tokenId", type: "uint256" },
           ],
-          name: "getURI",
+          name: "uri",
           outputs: [{ internalType: "string", name: "", type: "string" }],
           stateMutability: "view",
           type: "function",

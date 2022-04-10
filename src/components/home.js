@@ -75,7 +75,7 @@ export default class Home extends React.Component {
                     this.setState({ ...this.state, modalVisibility: "" });
                   }}
                 >
-                  Minter Form
+                  Get Started
                 </a>
               </li>
             </ul>
@@ -84,14 +84,12 @@ export default class Home extends React.Component {
           <div className="header__title">
             {/* <!-- <h1 onclick="alert('HTML alert')"> --> */}
             <h1>
-              When
+              Proof of
               {/* <!-- Green highlight effect --> */}
-              <span className="highlight"> minting </span>
-              meets
-              <br />
-              <span className="highlight">minimalist</span>
+              <span className="highlight"> Story </span>
+              Protocol
             </h1>
-            <h4>A simpler minting experience for a simpler life.</h4>
+            <h4>Describe careers with NFTs.</h4>
             <button className="btn--text btn--scroll-to">Learn more</button>
             <img
               src="/img/cryptoPunk1.jpg"
@@ -417,8 +415,9 @@ export default class Home extends React.Component {
             &times;
           </button>
           <h2 className="modal__header">
-            Fill and mint your NFT <br />
-            in just <span className="highlight">5 minutes</span>
+            Fill and award NFT to your
+            <br />
+            contributor in just <span className="highlight">2 minutes</span>
           </h2>
           <form className="modal__form">
             <button
@@ -539,7 +538,7 @@ export default class Home extends React.Component {
             </button>
             {this.state.isURIAvail ? (
               <button hidden={this.state.isURIAvail} className="btn">
-                {this.state.uri}|
+                {this.state.uri}
                 <button
                   className="btn"
                   style={{ backgroundColor: "white" }}
